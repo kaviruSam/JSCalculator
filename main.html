@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <!--<table class="table table-bordered">-->
+
+        <!--<tbody>-->
+        <!--<tr>-->
+            <!--<td>John</td>-->
+            <!--<td>Doe</td>-->
+            <!--<td>john</td>-->
+            <!--<td>khgjkhg</td>-->
+        <!--</tr>-->
+
+
+        <!--</tbody>-->
+    <!--</table>-->
+    <div class="row" style="border:1px solid black">
+        <div id="screen" class="row" style= " font-size:29px;height:105px;margin: 0px;border-bottom: 1px solid black">
+            <div id="first-value" class="row"style="height: 35px;margin:0px">
+
+            </div>
+            <div id="action-value" class="row"style="height: 35px;margin:0px">
+
+            </div>
+            <div id="second-value" class="row"style="height: 35px;margin:0px">
+
+            </div>
+
+        </div>
+        <div class="row" style="margin: 0px">
+
+            <button id="on" class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >
+                ON/OFF
+            </button>
+            <button id="c" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                C
+            </button>
+            <button id="del" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                del
+            </button>
+        </div>
+        <div class="row" style="margin: 0px">
+            <button id="btn1" data-value="1" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 num">
+              1
+
+            </button>
+            <button id="btn2" data-value="2" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 num">
+                2
+            </button>
+            <button id="btn3" data-value="3" class="col-lg-3 num col-md-3 col-sm-3 col-xs-3">
+                3
+
+            </button>
+            <button id="plus" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 action">
+                +
+
+            </button>
+
+        </div>
+
+        <div class="row" style="margin: 0px">
+            <button id="btn4" data-value="4" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 num">
+                4
+
+            </button>
+            <button id="btn5" data-value="5" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 num">
+                5
+            </button>
+            <button id="btn6" data-value="6" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 num">
+                6
+
+            </button>
+            <button id="minus" class="col-lg-3 action col-md-3 col-sm-3 col-xs-3">
+                -
+
+            </button>
+
+        </div>
+
+        <div class="row" style="margin: 0px">
+            <button id="btn7" data-value="7" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 num">
+                7
+
+            </button>
+            <button id="btn8" data-value="8" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 num">
+                8
+            </button>
+            <button id="btn9" data-value="9" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 num">
+                9
+
+            </button>
+            <button id="divider" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 action">
+                /
+
+            </button>
+
+        </div>
+
+
+        <div class="row" style="margin: 0px">
+
+            <button id="btn0" data-value="0" class="col-lg-6 col-md-6 col-sm-6 col-xs-6 num">
+                0
+            </button>
+            <button id="result" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                =
+
+            </button>
+
+            <button id="multi" class="col-lg-3 col-md-3 col-sm-3 col-xs-3 action">
+                x
+
+            </button>
+
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script>
+    var onStatus=false;
+    var value1="";
+    var value2="";
+    var isOne=true;
+    var action=null;
+  $(document).ready(function () {
+      $(".action").attr("disabled", "disabled");
+      $(".num").attr("disabled", "disabled");
+      $("#c").attr("disabled", "disabled");
+      $("#del").attr("disabled", "disabled");
+      $("#result").attr("disabled", "disabled");
+
+
+
+  });
+
+  $('#on').click(function () {
+      if(!onStatus){
+          $('#first-value').html("0");
+          onStatus=true;
+          value1="";
+          value2="";
+          action=null;
+
+          $(".action").attr("disabled", "disabled");
+          $(".num").removeAttr("disabled");
+
+      }
+      else {
+          $('#first-value').html("");
+          $('#action-value').html("");
+          $('#second-value').html("");
+       onStatus=false;
+          $(".action").attr("disabled", "disabled");
+          $(".num").attr("disabled", "disabled");
+
+      }
+  });
+  $('.num').click(function () {
+
+      $("#c").removeAttr("disabled");
+      $("#del").removeAttr("disabled");
+      $("#result").removeAttr("disabled");
+      if(isOne){
+          value1=value1+$(this).data("value");
+          $("#first-value").html(value1);
+          $(".action").removeAttr("disabled");
+
+      }
+      else{
+          value2=value2+$(this).data("value");
+          $("#second-value").html(value2);
+      }
+
+
+  })
+    $(".action").click(function () {
+        isOne=false;
+        $(".action").attr("disabled", "disabled");
+        var actionId=$(this).attr("id");
+        action=actionId;
+        if(actionId=="plus"){
+            $("#action-value").html("+");
+        }
+        else if(actionId=="minus"){
+            $("#action-value").html("-");
+        }
+        else if(actionId=="divider"){
+            $("#action-value").html("/");
+
+        }
+        else {
+            $("#action-value").html("x");
+        }
+
+
+
+    });
+
+  $("#c").click(function () {
+      $('#first-value').html("0");
+      $('#second-value').html("");
+      $('#action-value').html("");
+      value1="";
+      value2="";
+      action=null;
+      isOne=true;
+
+
+
+  });
+
+    $("#del").click(function () {
+       if(isOne){
+           value1=value1.slice(0, -1);
+           $("#first-value").html(value1);
+           if(value1.length==0){
+               $(".action").attr("disabled", "disabled");
+           }
+
+       }
+       else {
+           if(value2.length>0){
+               value2=value2.slice(0, -1);
+               $("#second-value").html(value2);
+
+
+           }
+           else {
+               isOne=true;
+               action=null;
+               $("#action-value").html("");
+               $(".action").removeAttr("disabled");
+
+           }
+
+
+       }
+
+
+
+    });
+  $("#result").click(function () {
+      if(value1!="" && value2!="" && action!=null){
+          var intValueOne=parseInt(value1);
+          var intValueTwo=parseInt(value2);
+          var resultValue;
+          if(action=="plus"){
+             resultValue=intValueOne+intValueTwo;
+          }
+          else if(action=="minus"){
+              resultValue=intValueOne-intValueTwo;
+          }
+          else if(action=="divider"){
+              resultValue=intValueOne/intValueTwo;
+          }
+          else {
+              resultValue=intValueOne*intValueTwo;
+
+          }
+          value1=resultValue+"";
+          value2="";
+          action=null;
+          $("#second-value").html(value2);
+          $("#action-value").html("");
+          $("#first-value").html(value1);
+          $(".action").removeAttr("disabled");
+
+      }
+
+  });
+
+
+</script>
+
+
+
+</body>
+</html>
